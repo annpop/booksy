@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Accordion, Card, Button} from 'react-bootstrap';
-import BooksyButtons from './BooksyButtons';
 import BooksyTable from './BooksyTable'
+import ModalBooks from './ModalBooks'
 import './BooksyBody.css'
 
 
-function BooksyBody() {
+function BooksyBody(books) {
+  
+  const [ showModal, setModal ] = useState(false)
+  const handleShow = () => setModal(true);
+  const handleClose = () => setModal(false);
     return(
         <Accordion defaultActiveKey="0">
             <Card>
@@ -13,11 +17,16 @@ function BooksyBody() {
             <Accordion.Toggle as={Button} variant="link" eventKey="0">
                 Books
             </Accordion.Toggle>
-                <BooksyButtons className="tyKurwiuDzialaj" />      
+              <div className="tyKurwiuDzialaj">
+                <Button variant="success" onClick={handleShow}>Add</Button>{' '}
+                <Button variant="primary">Edit</Button>{' '}
+                <Button variant="danger">Delete</Button>{' '}
+              </div>   
                 </Card.Header>
             <Accordion.Collapse eventKey="0">
                 <Card.Body>
                     <BooksyTable />
+                    <ModalBooks showModal={showModal} handleClose={handleClose}/>
                 </Card.Body>
     </Accordion.Collapse>
   </Card>
